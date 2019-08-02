@@ -19,7 +19,7 @@ router.get("/user/logout", (req, res) => {
   res.end("/");
 });
 
-router.get("/forge/clientID", (req, res) => {
+router.get("/forge/clientId", (req, res) => {
   res.json({
     ForgeClientId: clientId
   });
@@ -51,7 +51,7 @@ router.get("/user/auth", (req, res) => {
   res.end(url);
 });
 
-router.get("/api/forge/callback/oauth", (req, res) => {
+router.get("/forge/callback/oauth", (req, res) => {
   const csrf = req.query.state;
 
   if (!csrf || csrf !== req.session.csrf) {
@@ -78,7 +78,7 @@ router.get("/api/forge/callback/oauth", (req, res) => {
     .getToken(code)
     .then(internalCredentials => {
       session.internalCredentials = internalCredentials;
-      session.internalOAuth = req;
+      session.internalOAuth = request;
 
       // then refresh and get a limited scope token that we can send to the client
       const req2 = new forgeSDK.AuthClientThreeLegged(
@@ -90,8 +90,8 @@ router.get("/api/forge/callback/oauth", (req, res) => {
       req2
         .refreshToken(internalCredentials)
         .then(publicCredentials => {
-          session.setPublicCredentials(publicCredentials);
-          session.setPublicOAuth(req2);
+          session.publicCredentials = publicCredentials;
+          session.publicOAuth = req2;
 
           res.redirect("/");
         })
@@ -103,3 +103,5 @@ router.get("/api/forge/callback/oauth", (req, res) => {
       res.end(JSON.stringify(error));
     });
 });
+
+export default router;
