@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 function App() {
   return (
     <Fragment>
-      <nav class="navbar navbar-default navbar-fixed-top" />
+      <nav className="navbar navbar-default navbar-fixed-top" />
       <div className="container-fluid fill">
         <div className="row fill">
           <div className="col-sm-4 fill">
@@ -34,7 +34,7 @@ function App() {
           </div>
         </div>
       </div>
-      <form id="uploadFile" method="post" enctype="multipart/form-data">
+      <form id="uploadFile" method="post" encType="multipart/form-data">
         <input
           id="hiddenUploadField"
           type="file"
@@ -46,7 +46,7 @@ function App() {
       <div
         className="modal fade"
         id="createBucketModal"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="myModalLabel"
       >
